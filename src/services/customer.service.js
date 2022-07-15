@@ -4,19 +4,19 @@ const getAll = () =>{
     return httpClient.get('/customer');
 }
 
-const create = data =>{
+const create = (data) =>{
     return httpClient.post('/customer' , data);
 }
 
-const get = id =>{
+const get = (id )=>{
     return httpClient.get(`/customer/${id}`);
 }
 
-const update = data => {
-    return httpClient.put('/customer', data );
+const update = (id, data) => {
+    return httpClient.put(`/customer/${id}`,data);
 }
 
-const remove = id => {
+const remove = (id )=> {
     return httpClient.delete(`/customer/${id}`)
 }
 

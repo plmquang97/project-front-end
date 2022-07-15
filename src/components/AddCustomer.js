@@ -7,7 +7,7 @@ const AddCustomer = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [birthDay, setBirthDay] = useState("");
-//   const history =useHistory();
+
   const { id } = useParams();
 
   const saveCustomer = (e) => {
@@ -17,10 +17,9 @@ const AddCustomer = () => {
     if (id) {
       //update
       customerService
-        .update(customer)
+        .update(id, customer)
         .then((response) => {
           console.log("Customer data updated succsessfully", response.data);
-        //  history.push('/');
         })
         .catch((error) => {
           console.log("Something went wrong", error);
@@ -31,7 +30,6 @@ const AddCustomer = () => {
         .create(customer)
         .then((response) => {
           console.log("customer added successfully", response.data);
-        //  history.push("/");
         })
         .catch((error) => {
           console.log("something went wrong", error);
@@ -40,6 +38,7 @@ const AddCustomer = () => {
   };
   useEffect(() => {
     if (id) {
+      console.log(+id);
       customerService
         .get(id)
         .then((customer) => {
@@ -58,8 +57,7 @@ const AddCustomer = () => {
       <h3>Add Customer</h3>
       <hr />
       <form>
-        
-        
+               
       <div className="form-group">
           <input
             type="text"
@@ -67,7 +65,7 @@ const AddCustomer = () => {
             id="name"
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
-            placeholder="Enter name"
+            placeholder="Enter customer name"
           />
         </div>
 
@@ -82,18 +80,6 @@ const AddCustomer = () => {
           />
         </div>
 
-
-        <div className="form-group">
-          <input
-            type="date"
-            className="form-control col-4"
-            id="birthday"
-            value={birthDay}
-            onChange={(e) => setBirthDay(e.target.value)}
-          />
-        </div>
-
-
         <div className="form-group">
           <input
             type="email"
@@ -105,16 +91,25 @@ const AddCustomer = () => {
           />
         </div>
 
-      
+        <div className="form-group">
+          <input
+            type="date"
+            className="form-control col-4"
+            id="birthday"
+            value={birthDay}
+            onChange={(e) => setBirthDay(e.target.value)}
+          />
+        </div>
 
         <div>
           <button onClick={(e) => saveCustomer(e)} className="btn btn-primary">
-            Save
+            Save 
           </button>
         </div>
+    
       </form>
       <hr />
-      <Link to="/">Back to List</Link>
+      <Link to="/customer">Back to List</Link>
     </div>
   );
 };
